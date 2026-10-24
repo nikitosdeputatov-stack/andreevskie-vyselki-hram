@@ -148,28 +148,42 @@ h2::after {
 /* ===== РАЗДЕЛ "О ХРАМЕ" ===== */
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     margin-bottom: 30px;
 }
 
 .info-item {
+    display: flex;
+    flex-direction: column;
     background: #f8f6f3;
-    padding: 24px 28px;
+    padding: 28px 26px 24px;
     border-radius: 24px;
+    border-top: 4px solid #e8d3a6;
     transition: 0.25s ease;
 }
 
 .info-item:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
+    border-top-color: #d4a54a;
+    box-shadow: 0 12px 32px rgba(184, 134, 11, 0.08);
 }
 
-.info-item i {
-    font-size: 1.8rem;
-    color: #b8860b;
-    margin-bottom: 12px;
-    display: block;
+.info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4a54a, #b8860b);
+    box-shadow: 0 8px 20px rgba(184, 134, 11, 0.25);
+    margin-bottom: 18px;
+}
+
+.info-icon i {
+    font-size: 1.3rem;
+    color: #fff;
 }
 
 .info-item strong {
@@ -177,34 +191,63 @@ h2::after {
     font-size: 1.15rem;
     font-weight: 600;
     color: #1e1e2a;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
 }
 
 .info-item p {
-    margin: 4px 0;
+    margin: 0 0 8px;
     color: #4a3f36;
+    line-height: 1.6;
 }
 
-.info-item a {
+.info-item .nowrap {
+    white-space: nowrap;
+}
+
+/* Ссылка внизу плитки — прижата к низу, чтобы плитки выглядели ровно */
+.info-link {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid #ece3d6;
     color: #b8860b;
     text-decoration: none;
     font-weight: 500;
 }
 
-.info-item a:hover {
-    text-decoration: underline;
+.info-link i {
+    width: 18px;
+    margin-right: 8px;
 }
 
-.info-item .meta {
-    font-size: 0.9rem;
-    color: #7a6a5c;
+.info-link:hover {
+    color: #8f6808;
 }
 
-.info-item i.fa-phone,
-.info-item i.fa-envelope {
-    font-size: 0.8rem;
-    color: #7a6a5c;
-    margin-right: 4px;
+.info-schedule {
+    margin: 0 0 12px;
+    color: #4a3f36;
+}
+
+.info-schedule dt {
+    font-weight: 600;
+    color: #1e1e2a;
+    margin-top: 6px;
+}
+
+.info-schedule dt:first-child {
+    margin-top: 0;
+}
+
+.info-schedule dd {
+    display: flex;
+    gap: 10px;
+    line-height: 1.6;
+}
+
+.info-schedule dd span {
+    flex: 0 0 44px;
+    color: #b8860b;
+    font-weight: 600;
 }
 
 /* ===== КАРТА ===== */
@@ -458,29 +501,110 @@ h2::after {
 }
 
 /* ===== РАСПИСАНИЕ (КАЛЕНДАРЬ) ===== */
-.schedule-info {
-    margin-bottom: 22px;
-    color: #4a3f36;
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
-.schedule-info i {
+.schedule-status {
+    background: #f8f6f3;
+    border-radius: 24px;
+    padding: 28px;
+    text-align: center;
+    color: #7a6a5c;
+}
+
+.schedule-status i {
     color: #b8860b;
-    margin-right: 8px;
+    margin-right: 10px;
 }
 
-.calendar-wrapper {
+.schedule-embed {
     background: #f8f6f3;
     border-radius: 28px;
     padding: 8px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
 }
 
-.calendar-wrapper iframe {
+.schedule-embed iframe {
     width: 100%;
-    height: 520px;
+    height: 560px;
     border: none;
     border-radius: 24px;
     display: block;
+    background: #fff;
+}
+
+.schedule-day {
+    display: flex;
+    gap: 24px;
+    background: #f8f6f3;
+    border-radius: 24px;
+    padding: 20px 28px;
+    border-left: 4px solid transparent;
+}
+
+.schedule-day.is-feast {
+    border-left-color: #d4a54a;
+}
+
+.schedule-day.is-today {
+    background: #fbf3e2;
+    box-shadow: 0 8px 24px rgba(184, 134, 11, 0.12);
+}
+
+.schedule-date {
+    flex: 0 0 auto;
+    width: 116px;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.schedule-daynum {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #b8860b;
+}
+
+.schedule-month {
+    font-size: 0.95rem;
+    color: #4a3f36;
+}
+
+.schedule-weekday {
+    font-size: 0.85rem;
+    color: #7a6a5c;
+    margin-top: 4px;
+}
+
+.schedule-day.is-today .schedule-weekday {
+    color: #b8860b;
+    font-weight: 600;
+}
+
+.schedule-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.schedule-feast {
+    font-weight: 600;
+    color: #1e1e2a;
+    margin-bottom: 6px;
+}
+
+.schedule-service {
+    display: flex;
+    gap: 16px;
+    color: #2a2a3a;
+    padding: 3px 0;
+}
+
+.schedule-time {
+    flex: 0 0 52px;
+    font-weight: 600;
+    color: #b8860b;
 }
 
 .schedule-note {
@@ -578,6 +702,13 @@ footer i {
    АДАПТИВНОСТЬ
    ============================================================ */
 
+/* Ноутбуки: плитки «О храме» в две колонки */
+@media (max-width: 1100px) {
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 /* Планшеты и маленькие ноутбуки */
 @media (max-width: 768px) {
     body {
@@ -623,8 +754,12 @@ footer i {
     .events-grid {
         grid-template-columns: 1fr 1fr;
     }
-    .calendar-wrapper iframe {
-        height: 380px;
+    .schedule-day {
+        padding: 18px 20px;
+        gap: 16px;
+    }
+    .schedule-date {
+        width: 96px;
     }
     .donate-wrapper {
         padding: 30px 20px;
@@ -649,8 +784,21 @@ footer i {
     .events-grid {
         grid-template-columns: 1fr;
     }
-    .calendar-wrapper iframe {
-        height: 320px;
+    .schedule-day {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .schedule-date {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 8px;
+        width: auto;
+    }
+    .schedule-daynum {
+        font-size: 1.6rem;
+    }
+    .schedule-weekday {
+        margin-top: 0;
     }
     h2 {
         font-size: 1.8rem;

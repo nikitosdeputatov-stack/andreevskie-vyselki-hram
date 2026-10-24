@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Спасо-Преображенский храм д. Андреевские Выселки</title>
+    <title>Преображенский храм д. Андреевские Выселки</title>
     
     <!-- Подключаем шрифты -->
     <link rel="stylesheet" href="css/fonts.css" />
@@ -20,7 +20,7 @@
 
     <!-- ========== ШАПКА ========== -->
     <header>
-        <h1><i class="fas fa-church"></i>Спасо-Преображенский храм</h1>
+        <h1><i class="fas fa-church"></i>Преображенский храм</h1>
         <div class="subhead"><i class="fas fa-map-pin"></i>Городской округ Шатура, деревня Андреевские Выселки</div>
 
         <div class="tabs">
@@ -37,29 +37,34 @@
         <h2>О храме</h2>
         <div class="info-grid">
             <div class="info-item">
-                <i class="fas fa-location-dot"></i>
+                <span class="info-icon"><i class="fas fa-map-marker-alt"></i></span>
                 <strong>Местоположение</strong>
-                <p>Городской округ Шатура, деревня Андреевские Выселки</p>
+                <p>Московская область,<br>городской округ Шатура,<br>деревня Андреевские Выселки</p>
+                <a class="info-link" href="https://yandex.ru/maps/?text=Преображенский%20храм%20Андреевские%20Выселки%20Шатура" target="_blank" rel="noopener"><i class="fas fa-route"></i>Как добраться</a>
             </div>
             <div class="info-item">
-                <i class="fas fa-user-priest"></i>
+                <span class="info-icon"><i class="fas fa-cross"></i></span>
                 <strong>Настоятель</strong>
-                <p>Священник <b>Илия Депутатов</b></p>
-                <p><i class="fas fa-phone"></i> <a href="tel:+74951234567">+7 (915) 293-72-91</a></p>
+                <p>Священник <b class="nowrap">Илия Депутатов</b></p>
+                <a class="info-link" href="tel:+79152937291"><i class="fas fa-phone-alt"></i>+7 (915) 293-72-91</a>
             </div>
             <div class="info-item">
-                <i class="fas fa-envelope"></i>
+                <span class="info-icon"><i class="fas fa-comments"></i></span>
                 <strong>Контакты</strong>
-                <p><i class="fas fa-envelope"></i> <a href="mailto:nikola@hram.ru">nikola@hram.ru</a></p>
-                <p><i class="fas fa-phone"></i> <a href="tel:+74991234567">+7 (499) 123-45-67</a></p>
-                <p class="meta">Дежурный: ежедневно с 9:00 до 18:00</p>
+                <p>Дежурный находится в храме по субботам, воскресеньям и в праздничные дни.</p>
+                <a class="info-link" href="https://vk.ru/spaso_preobrazhenskii_hram" target="_blank" rel="noopener"><i class="fab fa-vk"></i>Группа ВКонтакте</a>
             </div>
             <div class="info-item">
-                <i class="fas fa-bell"></i>
-                <strong>Расписание богослужений</strong>
-                <p>Суббота: <p>8.00 Часы. Литургия<p>
-                    16.00 Всенощное бдение</p>
-                <p>Воскресенье: <p>8.00 Часы. Литургия<p></p>
+                <span class="info-icon"><i class="fas fa-bell"></i></span>
+                <strong>Богослужения</strong>
+                <dl class="info-schedule">
+                    <dt>Суббота</dt>
+                    <dd><span>8:00</span>Часы. Литургия</dd>
+                    <dd><span>16:00</span>Всенощное бдение</dd>
+                    <dt>Воскресенье</dt>
+                    <dd><span>8:00</span>Часы. Литургия</dd>
+                </dl>
+                <a class="info-link" href="#schedule"><i class="fas fa-calendar-alt"></i>Полное расписание</a>
             </div>
         </div>
 
@@ -76,7 +81,7 @@
         <h2>История храма</h2>
         <div class="history-text history-intro">
             <p>
-                Спасо-Преображенский храм стоит на месте древнего <strong>Погоста Преображенского</strong> —
+                Преображенский храм стоит на месте древнего <strong>Погоста Преображенского</strong> —
                 на берегу Святого озера, в бывшей Сенежской митрополичьей волости. Более шести веков здесь
                 совершается молитва в честь Преображения Господня. Нынешний каменный храм построен
                 в 1898–1904 годах, пережил закрытие и запустение в советские годы и был возрождён
@@ -251,23 +256,18 @@
     <!-- ========== ВКЛАДКА 4: РАСПИСАНИЕ ========== -->
     <div id="schedule" class="tab-content">
         <h2>Расписание богослужений</h2>
-        <p class="schedule-info">
-            <i class="fas fa-sync-alt"></i>
-            Актуальное расписание автоматически подгружается из Google Календаря. 
-            Изменяйте события в календаре — и они сразу появятся здесь.
-        </p>
-        <div class="calendar-wrapper">
-            <iframe 
-                src="https://calendar.google.com/calendar/embed?src=ru.usa%23holiday%40group.v.calendar.google.com&ctz=Europe%2FMoscow" 
-                style="border: 0" 
-                width="100%" 
-                height="500" 
-                frameborder="0" 
-                scrolling="no">
-            </iframe>
+        <!--
+            Расписание загружается из Google Календаря (календарь должен быть общедоступным).
+            data-calendar-id — «Идентификатор календаря» из его настроек (раздел «Интеграция календаря»).
+            data-api-key     — ключ Google Calendar API. Если оставить пустым,
+                               будет показан стандартный виджет Google вместо оформленного списка.
+            Службы — события со временем, праздник дня — событие «Весь день».
+        -->
+        <div id="schedule-list" class="schedule-list" data-calendar-id="8973fd7aaa25f4500db3d53f53a9d06670d271c9dd6081ab7713842fb1baf4d4@group.calendar.google.com" data-api-key="">
+            <p class="schedule-status"><i class="fas fa-spinner fa-spin"></i>Загружаем расписание…</p>
         </div>
         <div class="schedule-note">
-            <i class="fas fa-edit"></i> Чтобы подключить свой календарь, создайте его в Google и вставьте код сюда.
+            <i class="fas fa-info-circle"></i> Возможны изменения. Уточняйте у дежурного по телефону.
         </div>
     </div>
 
@@ -296,7 +296,7 @@
 
     <!-- ========== ФУТЕР ========== -->
     <footer>
-        <i class="fas fa-cross"></i> Спасо-Преображенский храм · 2026
+        <i class="fas fa-cross"></i> Преображенский храм · 2026
     </footer>
 </div>
 
