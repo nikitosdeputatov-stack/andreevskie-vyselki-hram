@@ -281,6 +281,24 @@ h2::after {
     color: #8f6808;
 }
 
+.info-hours {
+    margin: 0 0 12px;
+}
+
+.info-hours div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 3px 0;
+    color: #4a3f36;
+}
+
+.info-hours dd {
+    color: #b8860b;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
 .info-schedule {
     margin: 0 0 12px;
     color: #4a3f36;
