@@ -481,6 +481,60 @@ h2::after {
     font-size: 0.98rem;
 }
 
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f8f6f3;
+    border-radius: 28px;
+    padding: 48px 32px;
+    text-align: center;
+}
+
+.placeholder .info-icon {
+    width: 64px;
+    height: 64px;
+}
+
+.placeholder .info-icon i {
+    font-size: 1.6rem;
+}
+
+.placeholder h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #1e1e2a;
+    margin-bottom: 12px;
+}
+
+.placeholder p {
+    max-width: 520px;
+    color: #4a3f36;
+    margin-bottom: 8px;
+}
+
+.placeholder-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #d4a54a, #b8860b);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 60px;
+    box-shadow: 0 8px 24px rgba(184, 134, 11, 0.25);
+    transition: 0.25s ease;
+}
+
+.placeholder-btn i {
+    margin-right: 10px;
+}
+
+.placeholder-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(184, 134, 11, 0.35);
+}
+
 .add-hint {
     margin-top: 28px;
     text-align: center;
