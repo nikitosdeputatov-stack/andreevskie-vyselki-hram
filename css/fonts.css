@@ -1,0 +1,33 @@
+/* ===== ПОДКЛЮЧЕНИЕ ШРИФТОВ ===== */
+
+/* 
+   Основной шрифт — Segoe UI (системный, встроен в Windows)
+   Если нужен Google Font, раскомментируйте нужную строку ниже
+*/
+
+/* Вариант 1: Системные шрифты (быстро, без загрузок) */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+}
+
+/* 
+   Вариант 2: Шрифты Google (красивее, но требует загрузки)
+   Раскомментируйте нужную строку и замените ссылку в HTML
+*/
+
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+body {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+} */
+
+/* 
+   Вариант 3: Для заголовков можно использовать другой шрифт
+   Например, Playfair Display для элегантности
+*/
+
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
+h1, h2, h3, .event-title, .donate-btn {
+    font-family: 'Playfair Display', 'Georgia', serif;
+} */
+
+/* Примечание: если используете Google Fonts, не забудьте добавить ссылку в <head> */
