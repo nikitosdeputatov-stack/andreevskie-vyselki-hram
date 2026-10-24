@@ -210,6 +210,121 @@
 
     loadSchedule();
 
+    // ===== ПОЖЕРТВОВАНИЯ: РЕКВИЗИТЫ И QR-КОД =====
+    // Заполните реквизиты прихода — QR-код для оплаты построится автоматически.
+    // Для QR нужны: name, account, bic, bankName, corrAccount. Пустые поля на сайте не показываются.
+    const DONATION = {
+        name: '',          // Получатель — полное наименование прихода, как в банке
+        inn: '',           // ИНН
+        kpp: '',           // КПП
+        account: '',       // Расчётный счёт, 20 цифр
+        bankName: '',      // Название банка
+        bic: '',           // БИК, 9 цифр
+        corrAccount: '',   // Корреспондентский счёт, 20 цифр
+        purpose: 'Добровольное пожертвование на уставную деятельность',
+        card: ''           // Номер карты (необязательно)
+    };
+
+    // Платёжный QR по стандарту банков РФ (ГОСТ Р 56042), кодировка UTF-8
+    function buildPaymentString(d) {
+        const fields = [
+            ['Name', d.name], ['PersonalAcc', d.account], ['BankName', d.bankName],
+            ['BIC', d.bic], ['CorrespAcc', d.corrAccount], ['PayeeINN', d.inn],
+            ['KPP', d.kpp], ['Purpose', d.purpose]
+        ];
+        return 'ST00012|' + fields
+            .filter(([, value]) => value)
+            .map(([key, value]) => key + '=' + value.replace(/\|/g, ' '))
+            .join('|');
+    }
+
+    function copyText(text, btn) {
+        const done = () => {
+            const original = btn.innerHTML;
+            btn.classList.add('is-copied');
+            btn.innerHTML = '<i class="fas fa-check"></i>Скопировано';
+            setTimeout(() => {
+                btn.classList.remove('is-copied');
+                btn.innerHTML = original;
+            }, 2000);
+        };
+        // Запасной вариант — для старых браузеров и если доступ к буферу запрещён
+        const fallback = () => {
+            const area = document.createElement('textarea');
+            area.value = text;
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            const ok = document.execCommand('copy');
+            area.remove();
+            if (ok) done();
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(done, fallback);
+        } else {
+            fallback();
+        }
+    }
+
+    function renderDonation() {
+        const qrBox = document.getElementById('donate-qr-code');
+        const caption = document.getElementById('donate-qr-caption');
+        const details = document.getElementById('donate-details');
+        if (!qrBox || !details) return;
+        const d = DONATION;
+
+        // QR-код
+        const canQR = d.name && d.account && d.bic && d.bankName && d.corrAccount
+                      && typeof qrcode === 'function';
+        if (canQR) {
+            qrcode.stringToBytes = str => Array.from(new TextEncoder().encode(str));
+            const qr = qrcode(0, 'M');
+            qr.addData(buildPaymentString(d), 'Byte');
+            qr.make();
+            qrBox.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+            caption.innerHTML = '<i class="fas fa-mobile-alt"></i> Отсканируйте в приложении своего банка и введите сумму';
+        } else {
+            qrBox.classList.add('is-empty');
+            qrBox.innerHTML = '<i class="fas fa-qrcode"></i><span>QR-код появится<br>в ближайшее время</span>';
+            caption.textContent = '';
+        }
+
+        // Реквизиты
+        if (!d.account) {
+            details.innerHTML = `
+                <p class="donate-pending"><i class="fas fa-hourglass-half"></i>Реквизиты для перевода появятся в ближайшее время.</p>
+                <p class="donate-pending"><i class="fas fa-church"></i>Пожертвовать можно и в храме.</p>`;
+            return;
+        }
+
+        const rows = [
+            ['Получатель', d.name], ['ИНН', d.inn], ['КПП', d.kpp],
+            ['Расчётный счёт', d.account], ['Банк', d.bankName], ['БИК', d.bic],
+            ['Корр. счёт', d.corrAccount], ['Назначение', d.purpose], ['Номер карты', d.card]
+        ].filter(([, value]) => value);
+
+        details.innerHTML = `
+            <dl class="donate-rows">
+                ${rows.map(([label, value]) => `
+                    <div class="donate-row"><dt>${label}</dt><dd>${escapeHTML(value)}</dd></div>`).join('')}
+            </dl>
+            <button type="button" class="copy-btn" data-copy="details"><i class="far fa-copy"></i>Скопировать реквизиты</button>
+            ${d.card ? '<button type="button" class="copy-btn" data-copy="card"><i class="far fa-credit-card"></i>Скопировать номер карты</button>' : ''}`;
+
+        details.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const text = btn.dataset.copy === 'card'
+                    ? d.card.replace(/\s/g, '')
+                    : rows.filter(([label]) => label !== 'Номер карты')
+                          .map(([label, value]) => label + ': ' + value).join('\n');
+                copyText(text, btn);
+            });
+        });
+    }
+
+    renderDonation();
+
     // ===== ДОПОЛНИТЕЛЬНАЯ ФУНКЦИЯ: АНИМАЦИЯ ПРИ ЗАГРУЗКЕ =====
     // Добавляем класс "loaded" для плавного появления
     window.addEventListener('load', function() {
