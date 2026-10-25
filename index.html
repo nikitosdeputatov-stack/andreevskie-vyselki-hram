@@ -48,7 +48,7 @@
                 <strong>Местоположение</strong>
                 <p>Московская область,<br>городской округ Шатура,<br>деревня Андреевские Выселки</p>
                 <!-- Маршрут в Яндекс Картах от местоположения посетителя до храма (координаты метки храма) -->
-                <a class="info-link" href="https://yandex.ru/maps/?rtext=~55.627768%2C39.526392&amp;rtt=auto" target="_blank" rel="noopener"><i class="fas fa-route"></i>Проложить маршрут</a>
+                <a class="info-link route-link" href="https://yandex.ru/maps/?rtext=~55.627768%2C39.526392&amp;rtt=auto" target="_blank" rel="noopener"><i class="fas fa-route"></i>Проложить маршрут</a>
             </div>
             <div class="info-item">
                 <span class="info-icon"><i class="fas fa-cross"></i></span>
@@ -90,8 +90,10 @@
         </figure>
 
         <div class="map-container">
-            <iframe 
-                src="https://yandex.com/map-widget/v1/?um=constructor%3A909a4324d067b686bf1b9d3db388d870894a395cd7a07571201029c80dfb2945&amp;source=constructor" 
+            <!-- Официальный виджет Яндекс Карт с карточкой храма как организации -->
+            <iframe
+                src="https://yandex.ru/map-widget/v1/org/tserkov_preobrazheniya_gospodnya_v_andreyevskikh_vyselkakh/1386533515/"
+                title="Преображенский храм на Яндекс Картах"
                 allowfullscreen="" loading="lazy">
             </iframe>
         </div>

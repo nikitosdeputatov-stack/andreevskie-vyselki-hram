@@ -210,6 +210,26 @@
 
     loadSchedule();
 
+    // ===== МАРШРУТ В ЯНДЕКС КАРТАХ =====
+    // На телефоне сначала пробуем открыть приложение Яндекс Карт,
+    // а если его нет — через мгновение открываем веб-версию по обычной ссылке.
+    const routeLink = document.querySelector('.route-link');
+    if (routeLink && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        routeLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            const webUrl = this.href;
+            const fallback = setTimeout(() => { window.location.href = webUrl; }, 1500);
+            // Приложение открылось — страница ушла в фон, веб-версия не нужна
+            document.addEventListener('visibilitychange', function onHide() {
+                if (document.hidden) {
+                    clearTimeout(fallback);
+                    document.removeEventListener('visibilitychange', onHide);
+                }
+            });
+            window.location.href = 'yandexmaps://maps.yandex.ru/?rtext=~55.627768,39.526392&rtt=auto';
+        });
+    }
+
     // ===== ПОЖЕРТВОВАНИЯ: РЕКВИЗИТЫ И QR-КОД =====
     // Заполните реквизиты прихода — QR-код для оплаты построится автоматически.
     // Для QR нужны: name, account, bic, bankName, corrAccount. Пустые поля на сайте не показываются.
