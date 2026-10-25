@@ -245,12 +245,14 @@
         card: ''           // Номер карты (необязательно)
     };
 
-    // Платёжный QR по стандарту банков РФ (ГОСТ Р 56042), кодировка UTF-8
+    // Платёжный QR по стандарту банков РФ (ГОСТ Р 56042), кодировка UTF-8.
+    // Состав полей и заглавные буквы — в точности как в QR, который выдаёт сам банк
+    // (с КПП и назначением платежа часть банковских приложений отказывалась платить).
     function buildPaymentString(d) {
         const fields = [
-            ['Name', d.name], ['PersonalAcc', d.account], ['BankName', d.bankName],
-            ['BIC', d.bic], ['CorrespAcc', d.corrAccount], ['PayeeINN', d.inn],
-            ['KPP', d.kpp], ['Purpose', d.purpose]
+            ['Name', d.name.toUpperCase()], ['PersonalAcc', d.account],
+            ['BankName', d.bankName.toUpperCase()], ['BIC', d.bic],
+            ['CorrespAcc', d.corrAccount], ['PayeeINN', d.inn]
         ];
         return 'ST00012|' + fields
             .filter(([, value]) => value)
